@@ -79,8 +79,17 @@ if args.append is not None:
 # Change column names if given
 if args.names is not None:
     df.columns = args.names
-
-df.to_json(outfile, orient='records')
+    
+try:
+    df.to_json(outfile, orient='records',force_ascii=False,indent=2)
+    # df1.to_json(force_ascii=False),即可显示中文编码
+    #　pip install --upgrade pandas==1.0.5
+    # indentint, optional
+    # Length of whitespace used to indent each record.
+    # New in version 1.0.0.
+except:
+    print("Please run pip install --upgrade pandas==1.0.0 ")
+    df.to_json(outfile, orient='records',force_ascii=False)
 
 if args.printdata:
     print(df)
